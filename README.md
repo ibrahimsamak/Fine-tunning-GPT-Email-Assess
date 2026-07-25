@@ -29,6 +29,17 @@ python -m email_finetuner generate "Write an email about prompt caching"
 
 Other options: `--output-dir`, `--model`, `--suffix`, `-v` for debug logs. Most settings can also come from env vars (`EMAILS_DIR`, `OUTPUT_DIR`, `BASE_MODEL`, `TUNING_MODEL`, `FINETUNE_SUFFIX`).
 
+It also works from Python:
+
+```python
+from email_finetuner import Settings, prepare, train, generate
+
+settings = Settings.from_env(suffix="email-writer-v4", train_ratio=0.85)
+prepare(settings)
+model_id = train(settings)
+print(generate(settings, "Write an email about prompt caching", model_id))
+```
+
 ## Files
 
 - `core.py` - loading emails, building the dataset, fine-tuning, evaluation
